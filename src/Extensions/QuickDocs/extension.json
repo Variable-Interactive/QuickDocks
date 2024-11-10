@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Quickly search docs offline",
+"display_name": "Anything you want",
+"license": "MIT",
+"name": "QuickDocs",
+"nodes": ["Main.tscn"],
+"supported_api_versions": [4],
+"version": "0.1"
+}
