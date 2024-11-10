@@ -1,7 +1,7 @@
 {
 "author": "Variable",
 "description": "Quickly search docs offline",
-"display_name": "Anything you want",
+"display_name": "Quick Docs",
 "license": "MIT",
 "name": "QuickDocs",
 "nodes": ["Main.tscn"],
