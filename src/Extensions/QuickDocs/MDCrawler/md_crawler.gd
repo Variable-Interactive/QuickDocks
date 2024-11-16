@@ -1,14 +1,17 @@
 @tool
 extends EditorScript
 
-const DOC_PATH = "res://docs/"  ## Path to the doc wr intend to crawl
+## Path to the doc wr intend to crawl
+## NOTE: (I temporarily add pixelorama docs here, Then do File > Run then delete the folder)
+
+const DOC_PATH = "res://docs/"
 const OUTPUT_FILE = "res://src/Extensions/QuickDocs/crawl_data/doc_crawl_data.txt"
 
 var word_data: Dictionary = {}
 var para_data : Dictionary = {}
 
 func _run() -> void:
-	crawl("res://docs/")
+	crawl(DOC_PATH)
 
 
 func crawl(first_dir: String):
@@ -18,7 +21,7 @@ func crawl(first_dir: String):
 	for path in get_paths_in_dir(first_dir, [".md"]):
 		get_data(path)
 
-	var file = FileAccess.open("res://doc_crawl_data.txt", FileAccess.WRITE)
+	var file = FileAccess.open(OUTPUT_FILE, FileAccess.WRITE)
 	file.store_string(var_to_str([word_data, para_data]))
 	file.close()
 	print("Finished")

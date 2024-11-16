@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://csrl0t7ccw5ek"]
+
+[ext_resource type="Script" path="res://src/Extensions/QuickDocs/UI/codeblock.gd" id="1_5betd"]
+[ext_resource type="Texture2D" uid="uid://dfcr574jte7jx" path="res://src/Extensions/QuickDocs/graphics/copy.png" id="2_ivv5n"]
+
+[node name="Codeblock" type="TextEdit"]
+offset_right = 242.0
+offset_bottom = 185.0
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+scroll_fit_content_height = true
+script = ExtResource("1_5betd")
+
+[node name="Copy" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -27.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = 27.0
+grow_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="Copy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ivv5n")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="pressed" from="Copy" to="." method="_on_copy_pressed"]

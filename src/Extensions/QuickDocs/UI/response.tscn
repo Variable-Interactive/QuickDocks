@@ -11,16 +11,18 @@ grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_yxttc")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 2
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-selection_enabled = true
-visible_characters = 0
-visible_ratio = 0.0
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+modulate = Color(1, 1, 1, 0.72549)
+layout_mode = 2
+
+[node name="ContentContainer" type="VBoxContainer" parent="PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Spacer" type="Control" parent="."]
 custom_minimum_size = Vector2(100, 0)
