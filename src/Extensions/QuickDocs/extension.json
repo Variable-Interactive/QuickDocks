@@ -6,5 +6,5 @@
 "name": "QuickDocs",
 "nodes": ["Main.tscn"],
 "supported_api_versions": [4],
-"version": "0.1"
+"version": "0.2"
 }

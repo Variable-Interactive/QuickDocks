@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cidywbv0pqcyk"]
+[gd_scene load_steps=3 format=3 uid="uid://cidywbv0pqcyk"]
 
 [ext_resource type="Script" path="res://src/Extensions/QuickDocs/UI/chat_pannel.gd" id="1_obtw5"]
+[ext_resource type="Texture2D" uid="uid://cpja4m1gv7j13" path="res://src/Extensions/QuickDocs/graphics/request.png" id="2_oaihq"]
 
 [node name="ChatPannel" type="VBoxContainer"]
 anchors_preset = 15
@@ -9,6 +10,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_obtw5")
+
+[node name="Clear" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Clear Chat"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
@@ -23,18 +29,17 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="TextEdit" type="TextEdit" parent="HBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+text = "This Api gives you the essentials to develop a working extension for Pixelorama."
 
 [node name="Ask" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "Ask"
+icon = ExtResource("2_oaihq")
+expand_icon = true
 
-[node name="Clear" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-text = "Clear Chat"
-
+[connection signal="pressed" from="Clear" to="." method="_on_clear_pressed"]
 [connection signal="pressed" from="HBoxContainer/Ask" to="." method="_on_ask_pressed"]
-[connection signal="pressed" from="HBoxContainer/Clear" to="." method="_on_clear_pressed"]
