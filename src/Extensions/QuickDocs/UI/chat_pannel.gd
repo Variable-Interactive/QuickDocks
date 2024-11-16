@@ -28,7 +28,7 @@ func _on_ask_pressed() -> void:
 	chat.add_child(your_message)
 	your_message.display(input)
 
-	var current_threshold = 0.5
+	var current_threshold = 0.7
 	while results.is_empty():
 		for keyword: String in input.split(" ", false):
 			if keyword.length() > 2:  # Ignore smaller words
