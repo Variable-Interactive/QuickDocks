@@ -29,14 +29,17 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="TextEdit" type="TextEdit" parent="HBoxContainer"]
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "This Api gives you the essentials to develop a working extension for Pixelorama."
+placeholder_text = "Ask the docs by typing in words related to your search..."
+wrap_mode = 1
+scroll_fit_content_height = true
 
 [node name="Ask" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+size_flags_vertical = 4
 text = "Ask"
 icon = ExtResource("2_oaihq")
 expand_icon = true

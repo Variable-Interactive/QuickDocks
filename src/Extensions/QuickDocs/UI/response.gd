@@ -2,6 +2,9 @@ extends HBoxContainer
 
 @onready var content_container: VBoxContainer = %ContentContainer
 
+# This is a pixelorama class
+var expand_container = load("res://src/UI/Nodes/CollapsibleContainer.gd")
+
 
 func display(text: String):
 	var parser_result = []
@@ -46,33 +49,45 @@ func display(text: String):
 
 	var tween = get_tree().create_tween()
 	var delay = 0.5
+	var visible_items = 2
+	var content_parent = content_container
+	var is_parent_collapsible = false
 	for result in parser_result:
+		if visible_items == 0:
+			var collapse_container: VBoxContainer = expand_container.new()
+			tween.tween_callback(content_parent.add_child.bind(collapse_container))
+			content_parent = collapse_container
+			collapse_container.text = "More"
+			collapse_container.visible_content = true
+			is_parent_collapsible = true
+		visible_items -= 1
 		match result[0]:
 			"h1":
 				var label = Label.new()
 				label.theme_type_variation = &"HeaderSmall"
 				var separator = HSeparator.new()
-				tween.tween_callback(content_container.add_child.bind(label))
-				tween.tween_callback(content_container.add_child.bind(separator))
+				tween.tween_callback(content_parent.add_child.bind(label))
+				tween.tween_callback(content_parent.add_child.bind(separator))
 				tween.tween_property(label, "text", result[1], delay)
 			"h2":
 				var label = Label.new()
 				label.theme_type_variation = &"HeaderSmall"
-				tween.tween_callback(content_container.add_child.bind(label))
+				tween.tween_callback(content_parent.add_child.bind(label))
 				tween.tween_property(label, "text", result[1], delay)
 			"content":
 				var label = RichTextLabel.new()
 				label.bbcode_enabled = true
 				label.selection_enabled = true
 				label.fit_content = true
-				tween.tween_callback(content_container.add_child.bind(label))
+				tween.tween_callback(content_parent.add_child.bind(label))
 				tween.tween_property(label, "text", result[1], delay)
 			"codeblock":
 				var label = preload("res://src/Extensions/QuickDocs/UI/codeblock.tscn").instantiate()
-				tween.tween_callback(content_container.add_child.bind(label))
+				tween.tween_callback(content_parent.add_child.bind(label))
 				tween.tween_property(label, "text", result[1], delay)
 			"image":
 				var image = preload("res://src/Extensions/QuickDocs/UI/web_image.tscn").instantiate()
-				tween.tween_callback(content_container.add_child.bind(image))
-				print(result[1])
+				tween.tween_callback(content_parent.add_child.bind(image))
 				tween.tween_callback(image.display.bind(result[1]))
+	if is_parent_collapsible:
+		tween.tween_property(content_parent, "visible_content", false, 0.5)
