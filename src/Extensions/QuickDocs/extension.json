@@ -5,6 +5,6 @@
 "license": "MIT",
 "name": "QuickDocs",
 "nodes": ["Main.tscn"],
-"supported_api_versions": [4],
-"version": "0.2"
+"supported_api_versions": [6],
+"version": "0.3"
 }

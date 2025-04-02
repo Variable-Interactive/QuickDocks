@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends VBoxContainer
 
 @onready var content_container: VBoxContainer = %ContentContainer
 
@@ -9,7 +9,6 @@ var expand_container = load("res://src/UI/Nodes/CollapsibleContainer.gd")
 func display(text: String):
 	var parser_result = []
 
-	var code_started = false
 	var split_array := text.split("[/codeblock]", false)
 
 	for section in split_array:
@@ -65,18 +64,21 @@ func display(text: String):
 			"h1":
 				var label = Label.new()
 				label.theme_type_variation = &"HeaderSmall"
+				label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				var separator = HSeparator.new()
 				tween.tween_callback(content_parent.add_child.bind(label))
 				tween.tween_callback(content_parent.add_child.bind(separator))
 				tween.tween_property(label, "text", result[1], delay)
 			"h2":
 				var label = Label.new()
+				label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				label.theme_type_variation = &"HeaderSmall"
 				tween.tween_callback(content_parent.add_child.bind(label))
 				tween.tween_property(label, "text", result[1], delay)
 			"content":
 				var label = RichTextLabel.new()
 				label.bbcode_enabled = true
+				label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				label.selection_enabled = true
 				label.fit_content = true
 				tween.tween_callback(content_parent.add_child.bind(label))

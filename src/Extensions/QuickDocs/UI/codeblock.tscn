@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://csrl0t7ccw5ek"]
 
-[ext_resource type="Script" path="res://src/Extensions/QuickDocs/UI/codeblock.gd" id="1_5betd"]
+[ext_resource type="Script" uid="uid://blc62yjnygr4o" path="res://src/Extensions/QuickDocs/UI/codeblock.gd" id="1_5betd"]
 [ext_resource type="Texture2D" uid="uid://dfcr574jte7jx" path="res://src/Extensions/QuickDocs/graphics/copy.png" id="2_ivv5n"]
 
 [node name="Codeblock" type="TextEdit"]

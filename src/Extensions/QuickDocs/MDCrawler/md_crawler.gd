@@ -1,13 +1,13 @@
 @tool
 extends EditorScript
 
-## Path to the doc wr intend to crawl
+## Path to the doc we intend to crawl
 ## NOTE: (I temporarily add pixelorama docs here, Then do File > Run then delete the folder)
 
 const DOC_PATH = "res://docs/"
 const OUTPUT_FILE = "res://src/Extensions/QuickDocs/crawl_data/doc_crawl_data.txt"
 
-var word_data: Dictionary = {}
+var word_data: Dictionary[String, Array] = {}
 var para_data : Dictionary = {}
 
 func _run() -> void:
@@ -60,9 +60,37 @@ func get_data(path: String):
 			current_para = str(current_para, "\n", line)
 
 		## generate word to header dictionary
-		for word in line.split(" ", false):
-			word = word.strip_edges()
-			if word.length() > 3:  # Filter out any useless words (e.g the, an, etc...)
+		for word in line.capitalize().split(" ", false):
+			var skip := false
+			for forbidden in ["static/img", "http"]:
+				if forbidden in word:
+					skip = true
+					break
+			if skip: continue
+
+			word = (word.strip_edges()
+						.rstrip(".")
+						.replace("&amp;", "")
+						.replace("&", "")
+						.replace("</kbd>", "")
+						.replace("#", "")
+						.replace("<kbd>", "")
+						.replace("-", "")
+						.replace(",", "")
+						.replace("!", "")
+						.replace("*", "")
+						.replace("`", "")
+						.replace(":", "")
+						.replace("\"", "")
+						.replace("[", "")
+						.replace("]", "")
+						.replace("(", "")
+						.replace(")", "")
+						.replace("{", "")
+						.replace("}", "")
+					)
+			# Filter out any useless words (e.g the, an, etc...)
+			if not word in ["a", "an", "or", "the", "but", "and", "so", ""]:
 				if word_data.has(word):
 					var word_references: Array = word_data[word]
 					if not current_header in word_data[word]:

@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://cchxt8acd0jy7"]
 
-[ext_resource type="Script" path="res://src/Extensions/QuickDocs/UI/response.gd" id="1_yxttc"]
+[ext_resource type="Script" uid="uid://dma7544cdd2ga" path="res://src/Extensions/QuickDocs/UI/response.gd" id="1_yxttc"]
 
-[node name="Response" type="HBoxContainer"]
+[node name="Response" type="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,9 +12,23 @@ grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_yxttc")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Response:"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="PanelContainer"]
 modulate = Color(1, 1, 1, 0.72549)
@@ -23,7 +38,3 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Spacer" type="Control" parent="."]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2

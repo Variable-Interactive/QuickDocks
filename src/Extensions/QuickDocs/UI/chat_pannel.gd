@@ -4,7 +4,7 @@ const CRAWL_FILE = "res://src/Extensions/QuickDocs/crawl_data/doc_crawl_data.txt
 const request_preload = preload("res://src/Extensions/QuickDocs/UI/request.tscn")
 const response_preload = preload("res://src/Extensions/QuickDocs/UI/response.tscn")
 
-var word_data: Dictionary = {}
+var word_data: Dictionary[String, Array] = {}
 var para_data : Dictionary = {}
 
 var added_chat_titles = []
@@ -13,7 +13,6 @@ var added_chat_titles = []
 
 
 func _ready() -> void:
-	randomize()
 	var file = FileAccess.open(CRAWL_FILE, FileAccess.READ)
 	var info: Array = str_to_var(file.get_as_text())
 	file.close()
@@ -23,19 +22,21 @@ func _ready() -> void:
 
 func _on_ask_pressed() -> void:
 	var results: Dictionary
+	# Get the input text (and also put it out for display)
 	var input: String = $HBoxContainer/TextEdit.text
 	var your_message = request_preload.instantiate()
 	chat.add_child(your_message)
 	your_message.display(input)
 
-	var current_threshold = 0.7
+	var resemble_threshold = 0.7  ## sections in docs having resembling words will be detected
 	while results.is_empty():
+		## Loop through all the bigger words in our input text
 		for keyword: String in input.split(" ", false):
 			if keyword.length() > 2:  # Ignore smaller words
 				for key: String in word_data.keys():  # Search word base
-					var score = key.to_lower().similarity(keyword.to_lower())
-					if score > current_threshold:
-						## get headers
+					var score := key.to_lower().similarity(keyword.to_lower())
+					if score > resemble_threshold:
+						# Store all headers that contain the resembling word in their content
 						for section_header: String in word_data[key]:
 							# Track frequent occurances
 							if not section_header in added_chat_titles:
@@ -43,20 +44,25 @@ func _on_ask_pressed() -> void:
 									results[section_header] = results[section_header] + score
 								else:
 									results[section_header] = score
-		current_threshold -= 0.001
-		if current_threshold < 0.3:
+		# If nothing resembling was found with the current resemble_threshold setting then
+		# decrease it a bit and try again
+		resemble_threshold -= 0.001
+		if resemble_threshold < 0.3:  # Give up if nothing was found, even at the lowest value
 			break
+
+	# sort result on score and get top 5 best
+	var result_headers = results.keys()
+	result_headers.sort_custom(
+		func (a, b): if results[a] > results[b]: return true else: return false
+	)
+	if result_headers.size() > 5:
+		result_headers.resize(5)
 
 	var answer = response_preload.instantiate()
 	chat.add_child(answer)
 	if not results.is_empty():
-		var final_result = para_data[
-			results.keys()[results.values().find(results.values().max())]
-		]
-		var second_random_result = para_data[results.keys().pick_random()]
-		var choice = randf()
-		if choice < 0.3:  # introduce some randomness in answers
-			final_result = second_random_result
+		# Pick the result with the largest amount of resembling keywords
+		var final_result = para_data[result_headers[0]]
 		added_chat_titles.append(para_data.keys()[para_data.values().find(final_result)])
 		answer.display(md_to_bb(final_result))
 	else:

@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cidywbv0pqcyk"]
 
-[ext_resource type="Script" path="res://src/Extensions/QuickDocs/UI/chat_pannel.gd" id="1_obtw5"]
+[ext_resource type="Script" uid="uid://ev2hdj5mje0a" path="res://src/Extensions/QuickDocs/UI/chat_pannel.gd" id="1_obtw5"]
 [ext_resource type="Texture2D" uid="uid://cpja4m1gv7j13" path="res://src/Extensions/QuickDocs/graphics/request.png" id="2_oaihq"]
 
 [node name="ChatPannel" type="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -32,7 +33,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Ask the docs by typing in words related to your search..."
+placeholder_text = "Type in a few words or a sentence you believe may be in the documentation..."
 wrap_mode = 1
 scroll_fit_content_height = true
 

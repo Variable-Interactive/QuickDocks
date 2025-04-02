@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdpjudhar1q1h"]
 
-[ext_resource type="Script" path="res://src/Extensions/QuickDocs/UI/request.gd" id="1_nny22"]
+[ext_resource type="Script" uid="uid://tl0fnheqyinc" path="res://src/Extensions/QuickDocs/UI/request.gd" id="1_nny22"]
 
-[node name="Request" type="HBoxContainer"]
+[node name="Request" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,15 +11,26 @@ grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_nny22")
 
-[node name="Spacer" type="Control" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "Prompt:"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-custom_minimum_size = Vector2(200, 0)
+clip_contents = false
 layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 2
 bbcode_enabled = true
+text = "Hy this is a question. Hy this is a question. Hy this is a question. Hy this is a question."
 fit_content = true
 scroll_active = false
 selection_enabled = true
